@@ -1,10 +1,31 @@
 import Head from "next/head";
-import Link from "next/link";
+import { APIKEY } from "../config";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
+export default function SearchResults() {
+	const [data, setData] = useState("");
+	const [search, setSearch] = useState("");
 
-export default function Home() {
+	let url = "http://www.omdbapi.com/?i=tt3896198&apikey=2ab6220a";
+	const fetchMovieData = async () => {
+		try {
+			const { data } = await axios.get(url);
+			console.log(data);
+			setData(JSON.stringify(data));
+		} catch (error) {
+			console.log(error);
+			setData(error);
+		}
+	};
+
+	useEffect(() => {
+		fetchMovieData();
+	}, []);
+
+	let listen = "https://music.youtube.com/watch?v=oiKj0Z_Xnjc&feature=share";
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -17,7 +38,18 @@ export default function Home() {
 			</Head>
 
 			<main className={styles.main}>
-				
+				<div className={`m-2 p-2 ${styles.background}`}>
+					<span>MyTestApp</span>
+					<h3>Watch something incredible</h3>
+				</div>
+				<h1>App home</h1>
+				<input
+					type="text"
+					className=""
+					value={search}
+					onChange={(e) => setSearch(e.target.value)}
+				/>
+				<p>{data}</p>
 			</main>
 
 			<footer className={styles.footer}>

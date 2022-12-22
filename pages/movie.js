@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { APIKEY } from "../config";
+import config from "../config";
 import styles from "../styles/Home.module.css";
 import Head from "next/head";
+import {
+	Button,
+	useColorMode,
+	useColorModeValue,
+	Input,
+	Box,
+	Flex,
+} from "@chakra-ui/react";
 
 const API_URL = "http://www.omdbapi.com/";
 
@@ -10,13 +18,17 @@ export default function SearchResults() {
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
+	// Color mode
+	const { colorMode, toggleColorMode } = useColorMode();
+
+	const txt = useColorModeValue("black", "white");
 
 	async function fetchData(searchTerm) {
 		setIsLoading(true);
 
 		try {
 			const response = await fetch(
-				`${API_URL}?apikey=${APIKEY}&s=${searchTerm}`
+				`${API_URL}?apikey=2ab6220a&s=${searchTerm}`
 			);
 			const data = await response.json();
 			setMovies(data.Search);
@@ -28,13 +40,18 @@ export default function SearchResults() {
 	}
 	useEffect(() => {
 		fetchData();
-	}, [movies]);
+	}, []);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
+		console.log(searchTerm);
 		fetchData(searchTerm);
 	};
-
+	/* 
+	if (error) {
+		return <p>There was an error loading the movies</p>;
+	}
+ */
 	return (
 		<div>
 			<Head>
@@ -45,27 +62,73 @@ export default function SearchResults() {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
+			<Box
+				background="whiteAlpha.100"
+				w={1440}
+				h={140}
+				left="0px"
+				top="0px"
+			>
+				<Box
+					position="absolute"
+					border="1px"
+					borderStyle="solid"
+					borderColor="white"
+					w="193px"
+					h="60px"
+					left="77px"
+					top="40px"
+				>
+					<Box m={4} p={2} w="156px" h={32.94} left="96px" top={54}>
+						MyTestApp
+					</Box>
+				</Box>
+			</Box>
 			<div className={`${styles.background}`}>
-					<span>MyTestApp</span>
-					<h3>Watch something incredible</h3>
-				</div>
-			<form onSubmit={handleSubmit} className={`${styles.search}`}>
-				<input
+				<Box
+					position="absolute"
+					w="279px"
+					h="31px"
+					left="67px"
+					top="888px"
+					fontFamily="DM Sans"
+					fontStyle="normal"
+					fontWeight="400"
+					fontSize="24px"
+					lineHeight="31px"
+				>
+					Watch something incredible
+				</Box>
+			</div>
+			<form onSubmit={handleSubmit} m={2}>
+				<Input
 					type="text"
 					value={searchTerm}
 					onChange={(event) => setSearchTerm(event.target.value)}
+					m={2}
+					variant="filled"
 				/>
-				<button type="submit">Search</button>
+				<Button m={2} type="submit">
+					Search
+				</Button>
 			</form>
-			<ul>
-				{movies.map((movie) => (
-					<li key={movie.imdbID}>{movie.Title}</li>
+			<Flex w="90%" wrap="wrap" m={2}>
+				{movies?.map((movie) => (
+					<Box
+						_hover={{ w: 32 }}
+						w={24}
+						boxShadow="dark-lg"
+						m={2}
+						key={movie.imdbID}
+					>
+						{movie.Title}
+					</Box>
 				))}
-			</ul>
+			</Flex>
+
+			<Button m={2} onClick={toggleColorMode}>
+				Toggle {colorMode === "light" ? "Dark" : "Light"}
+			</Button>
 		</div>
 	);
-
-	if (error) {
-		return <p>There was an error loading the movies</p>;
-	}
 }

@@ -15,7 +15,6 @@ const API_URL = "http://www.omdbapi.com/";
 export default function SearchResults() {
 	const [movies, setMovies] = useState([]);
 	const [error, setError] = useState(null);
-	const [isLoading, setIsLoading] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
 	// Color mode
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -23,7 +22,6 @@ export default function SearchResults() {
 	const txt = useColorModeValue("black", "white");
 
 	async function fetchData(searchTerm) {
-		setIsLoading(true);
 
 		try {
 			const response = await fetch(
@@ -35,7 +33,6 @@ export default function SearchResults() {
 			setError(error);
 		}
 
-		setIsLoading(false);
 	}
 	useEffect(() => {
 		fetchData();

@@ -111,7 +111,7 @@
 .background {
   background-image: url("../public/pexels-tima-miroshnichenko-7991158.jpg");
   background-size: 100vw 50vh;
-  background-repeat: repeat-x;
+  background-repeat: no-repeat;
   height: 50vh;
   padding: 10px;
 }

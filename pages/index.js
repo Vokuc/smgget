@@ -49,7 +49,7 @@ export default function SearchResults() {
 	}
  */
 	return (
-		<div>
+		<div className="w-5/5">
 			<Head>
 				<title>Create Next App</title>
 				<meta
@@ -60,7 +60,7 @@ export default function SearchResults() {
 			</Head>
 			<Box
 				background="whiteAlpha.100"
-				w={1440}
+				/* w={1440} */
 				h={140}
 				left="0px"
 				top="0px"
@@ -80,24 +80,28 @@ export default function SearchResults() {
 					</Box>
 				</Box>
 			</Box>
-			<Box className={`${styles.background}`}>
+			<Box className={`${styles.background}`} /* position="absolute" */ /* w={1440}  */h={550} left="0px" top="138px">
 				<Box
 					position="absolute"
-					w="279px"
-					h="31px"
-					left="67px"
-					top="888px"
+					w="490px"
+					h="282px"
+					left="77px"
+					top="247px"
 					fontFamily="DM Sans"
 					fontStyle="normal"
-					fontWeight="400"
-					fontSize="24px"
-					lineHeight="31px"
+					fontWeight="700"
+					fontSize="72px"
+					lineHeight="94px"
+					letterSpacing="-0.05em"
 				>
 					Watch something incredible
 				</Box>
 			</Box>
 			<form onSubmit={handleSubmit} m={2}>
 				<Input
+					/* w={680} */
+					h={54}
+					className="w-3/4"
 					type="text"
 					value={searchTerm}
 					onChange={(event) => setSearchTerm(event.target.value)}
@@ -108,7 +112,7 @@ export default function SearchResults() {
 					Search
 				</Button>
 			</form>
-			<Flex w="90%" wrap="wrap" m={2}>
+			<Flex w="90%" wrap="wrap" h={349} left="67px" top="888px" className="mt-8">
 				{movies?.map((movie) => (
 					<Box
 						_hover={{ w: 32 }}
@@ -116,6 +120,7 @@ export default function SearchResults() {
 						boxShadow="dark-lg"
 						m={2}
 						key={movie.imdbID}
+						className="w-4/5"
 					>
 						{movie.Title}
 					</Box>

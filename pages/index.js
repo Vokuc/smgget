@@ -10,7 +10,7 @@ import {
 	Flex,
 } from "@chakra-ui/react";
 
-const API_URL = "http://www.omdbapi.com/";
+const API_URL = "https://www.omdbapi.com/";
 
 export default function SearchResults() {
 	const [movies, setMovies] = useState([]);

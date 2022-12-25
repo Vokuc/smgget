@@ -9,6 +9,8 @@ import {
 	Box,
 	Flex,
 } from "@chakra-ui/react";
+import Image from "next/image";
+
 
 const API_URL = "https://www.omdbapi.com/";
 
@@ -112,16 +114,17 @@ export default function SearchResults() {
 					Search
 				</Button>
 			</form>
-			<Flex w="90%" wrap="wrap" h={349} left="67px" top="888px" className="mt-8">
+			<Flex w="90%" wrap="wrap" h={300} left="67px" top="888px" className="mt-8">
 				{movies?.map((movie) => (
 					<Box
-						_hover={{ w: 32 }}
+					_hover={{ w: 32 }}
 						w={24}
 						boxShadow="dark-lg"
 						m={2}
 						key={movie.imdbID}
-						className="w-4/5"
-					>
+						className={`w-4/5`}
+						>
+						<Box><img src={`${movie.Poster}`} /></Box>
 						{movie.Title}
 					</Box>
 				))}
